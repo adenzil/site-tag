@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Group Sites Options</title>
+        <link rel="stylesheet" type="text/css" href="/bs/css/bootstrap.min.css">
+        <style>
+            .block{
+                display: inline-block;
+                background: gold;
+                padding: 12px 10px;
+                width: 100%;
+                border-radius: 30px;
+            }
+            .iurl{
+                width: auto;
+                padding: 15px 5px;
+            }
+            .editurl{
+                min-width: 200px;
+            }
+            .right{
+                float: right;
+                margin-right: 10px;
+            }
+            .edit{
+            }
+            .center{
+                text-align: center;
+            }
+            #searchtag{
+                width: 200px;
+            }
+            #newtag{
+                height: 30px;
+            }
+            #tags{
+                text-align: center;
+            }
+            body{
+                background: darkturquoise;
+                color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 align="center">Group Sites Options</h1>
+        <br>
+        <br>
+        <br>
+            <div id="tags">
+                <span><b>Create new tag : </b></span>
+                <input type="text" id="newtag">
+                <button class="btn btn-primary btn-sm" type="submit" id="save">SAVE</button>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                SEARCH : <input type="text" id="searchtag" placeholder="   Type here to search a tag">
+            </div>
+            </br>
+            </br>
+
+        <div class="container">
+            <div class="alltagbody">
+                <h2>Existing tags : <button id="delall" class="btn btn-default btn-danger right">Delete All Tags</button></h2>
+            </div>
+            
+            </br>
+            </br>
+
+            <div id="extags">
+            
+            </div>
+
+            <div id="data">
+
+            </div>
+        </div>
+
+        <script src="analytics.js"></script>
+        <script src="jquery-3.1.1.min.js"></script>
+        <script src="options.js"></script>
+        
+    </body>
+</html>

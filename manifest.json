@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+
+  "name": "Site tag",
+  "description": "Group all your website and create a catalog of all your websites by adding tag.",
+  "version": "1.0.5",
+  "icons": {
+    "128": "sitetag128.png",
+    "48": "sitetag48.png",
+    "16": "sitetag16.png"
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "js": ["jquery-3.1.1.min.js","eventPage.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "notifications",
+    "contextMenus",
+    "tabs"
+  ],
+
+  "options_page": "options.html"
+}

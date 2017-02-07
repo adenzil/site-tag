@@ -18,7 +18,6 @@ $(function(){
                     limits.groupsites = {}
                 limits.groupsites[$('#newtag').val()] = [];
                 updatedata(limits.groupsites,function(){$('#newtag').val('')})
-                    // on update
             });
         }
     })

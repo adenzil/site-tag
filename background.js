@@ -54,6 +54,49 @@ chrome.contextMenus.onClicked.addListener(function(clickData){
     }
 });
 
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    // console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+    if (request.site){
+        console.log(request.site)
+        sendResponse({added: "done"});
+        get_data();
+    }
+    else if(request.deleted){
+        sendResponse({added: "done"});
+        get_data();
+    }
+    else if(request.timer){
+        set_timer(request.timer.id,request.timer.title, request.timer.totaltime);
+        sendResponse({added: "done"});
+    }
+});
+
+var allurls = {}
+get_data();
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    if(tab.status == 'complete'){
+        for (var key in allurls) {
+            if (allurls.hasOwnProperty(key)) {
+                if(tab.url.search(key) >= 0){
+                    set_timer(tabId,tab.title,allurls[key]);
+                    break;
+                }
+            }
+        }
+    }
+
+});
+
+function get_data(){
+
+    chrome.storage.sync.get('existinglimit',function(limits){
+        allurls = limits.existinglimit
+    });
+
+}
+
 function set_timer(id, pagename, totaltime){
 
     var timeout = setTimeout(function(){

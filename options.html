@@ -44,39 +44,70 @@
     </head>
     <body>
         <h1 align="center">Group Sites Options</h1>
-        <br>
-        <br>
-        <br>
-            <div id="tags">
-                <span><b>Create new tag : </b></span>
-                <input type="text" id="newtag">
-                <button class="btn btn-primary btn-sm" type="submit" id="save">SAVE</button>
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                SEARCH : <input type="text" id="searchtag" placeholder="   Type here to search a tag">
-            </div>
-            </br>
-            </br>
+        <br><br><br>
 
-        <div class="container">
-            <div class="alltagbody">
-                <h2>Existing tags : <button id="delall" class="btn btn-default btn-danger right">Delete All Tags</button></h2>
+        <div class="row">
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tg">Tags</a></li>
+                    <li><a data-toggle="tab" href="#bg">Timeout</a></li>
+                    <!-- <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-toggle="tab" href="#dropdown1">Dropdown1</a></li>
+                            <li><a data-toggle="tab" href="#dropdown2">Dropdown2</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
             </div>
-            
-            </br>
-            </br>
+        </div>
 
-            <div id="extags">
-            
+        <div class="tab-content">
+
+            <div id="tg" class="tab-pane fade in active">
+                </br></br>
+                <div id="tags">
+                    <span><b>Create new tag : </b></span>
+                    <input type="text" id="newtag">
+                    <button class="btn btn-primary btn-sm" type="submit" id="save">SAVE</button>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    SEARCH : <input type="text" id="searchtag" placeholder="   Type here to search a tag">
+                </div>
+                </br></br>
+                <div class="row">
+                    <div class="container">
+                        <div class="alltagbody">
+                            <h2>Existing tags : <button id="delall" class="btn btn-default btn-danger right">Delete All Tags</button></h2>
+                        </div>
+                        </br></br>
+                        <div id="extags"></div>
+                        <div id="data"></div>
+                    </div>
+                </div>
             </div>
 
-            <div id="data">
-
+            <div id="bg" class="tab-pane fade">
+                <div class="row">
+                    <div class="container">
+                        <div id="newlimits">
+                            <h2>Set universal time limit : </h2>
+                            URL     : <input type="text" id="page"/>
+                            Minutes : <input id="minutes" type="text"/>
+                            Seconds : <input id="seconds" type="text"/>
+                            <button class="btn btn-md btn-primary" id="addnewlimit" type="submit">SAVE</button>
+                        </div>
+                        <br><br>
+                        <div id="existinglimits"></div>
+                    </div>
+                </div>
             </div>
+
         </div>
 
         <script src="analytics.js"></script>
         <script src="jquery-3.1.1.min.js"></script>
         <script src="options.js"></script>
+        <script type="text/javascript" src="/bs/js/bootstrap.min.js"></script>
         
     </body>
 </html>

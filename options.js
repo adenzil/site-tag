@@ -116,3 +116,100 @@ $(function(){
     }
 
 });
+
+
+
+$(function(){
+
+    get_data()
+
+    $('#addnewlimit').on("click",function(){
+        var page = $('#page').val();
+        var minutes = $('#minutes').val();
+        var seconds = $('#seconds').val();
+        var totaltime = 0;
+
+        if(minutes == parseInt(minutes,10))
+            totaltime += minutes*60*1000;
+
+        if(seconds == parseInt(seconds,10))
+            totaltime += seconds*1000;
+
+        if (page){
+            var latest = {}
+            chrome.storage.sync.get('existinglimit',function(limits){
+                if(!('existinglimit' in limits))
+                    limits.existinglimit = {}
+                latest = limits.existinglimit;
+                latest[page]=totaltime;
+                chrome.storage.sync.set({'existinglimit':latest}, function(){
+                    chrome.runtime.sendMessage({site:{'page':page,'totaltime':totaltime}}, function(response) {
+                      console.log(response.added);
+                    });
+                    $('#page').val("");
+                    $('#minutes').val("");
+                    $('#seconds').val("");
+                    get_data()
+                });
+
+            });
+
+        }
+    });
+
+    function urldelete(){
+        var id = this.id;
+         chrome.storage.sync.get('existinglimit',function(limits){
+            if(!('existinglimit' in limits))
+                    limits.existinglimit = {}
+            latest = limits.existinglimit;
+            delete latest[id];
+            chrome.storage.sync.set({'existinglimit':latest}, function(){
+                chrome.runtime.sendMessage({deleted:id}, function(response) {
+                  console.log(response.added);
+                });
+                get_data()
+            });
+        });
+    }
+
+    function get_data(){
+
+        $('#existinglimits').text('');
+
+        chrome.storage.sync.get('existinglimit',function(limits){
+            var list = document.createElement('ul');
+            list.className = 'list-group';
+            if(!('existinglimit' in limits))
+                    limits.existinglimit = {}
+            val = limits.existinglimit
+            for (var key in val) {
+                if (val.hasOwnProperty(key)) {
+
+                    var item = document.createElement('li');
+                    item.className = "list-group-item";
+                    item.appendChild(document.createTextNode(key));
+
+                    var badge = document.createElement('span');
+                    badge.appendChild(document.createTextNode(val[key]/1000 + ' seconds'));
+                    badge.className = "badge badge-default badge-pill";
+                    item.appendChild(badge);
+
+                    var del = document.createElement('input');
+                    del.id = key;
+                    del.className = 'btn btn-danger btn-sm';
+                    del.style.marginLeft = '15px';
+                    del.type = 'submit';
+                    del.value = 'delete';
+                    del.onclick = urldelete;
+                    item.appendChild(del);
+
+                    list.appendChild(item);
+                }
+            }
+            document.getElementById('existinglimits').appendChild(list);
+        });
+
+    }
+
+});

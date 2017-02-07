@@ -15,7 +15,6 @@ if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('hand
             addDownloadTag();
         },2000)
     });
- 
 
 }
 

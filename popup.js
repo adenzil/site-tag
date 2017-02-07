@@ -42,4 +42,11 @@ $(function(){
     	
     })
 
+    $('#screenshot').click(function(){
+        chrome.tabs.captureVisibleTab(null,null,function(url){
+            download(url,'screenshot.jpg');
+            delete url;
+        })
+    })
+
 })

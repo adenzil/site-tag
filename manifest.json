@@ -3,7 +3,7 @@
 
   "name": "Site tag",
   "description": "Group all your website and create a catalog of all your websites by adding tag.",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "icons": {
     "128": "sitetag128.png",
     "48": "sitetag48.png",
@@ -24,7 +24,8 @@
     "storage",
     "notifications",
     "contextMenus",
-    "tabs"
+    "tabs",
+    "<all_urls>"
   ],
 
   "options_page": "options.html"

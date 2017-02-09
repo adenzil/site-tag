@@ -11,18 +11,42 @@ if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('hand
 }else if(window.location.host == 'www.instagram.com'){
 
     $(document).ready(function(){
+        downloadall();
         setInterval(function(){
             addDownloadTag();
         },2000)
+        $('#downloadall').click(function(){
+            let images = $('img')
+            for (let i=0; i<images.length;i++){
+                if(images[i].hasAttribute('id') && images[i].id.indexOf('ImageLoader') < 0)
+                    download(images[i].src);
+            }
+        })
     });
 
+}
+
+
+/*
+    One button to rule them all (aka download all images that have been loaded)
+*/
+function downloadall(){
+    let r = document.createElement('button')
+    r.id = 'downloadall';
+    r.style.width = '100%';
+    r.style.bottom = '0px';
+    r.style.padding = '10px';
+    r.style.position = 'fixed';
+    r.innerText = 'DOWNLOAD ALL';
+    r.style.backgroundColor = 'deepskyblue';
+    $("section")[0].append(r);
 }
 
 /*
     Add download button to all instagram pics
 */
 function addDownloadTag(){
-    var images = $('img')
+    let images = $('img')
     for (let i=0; i<images.length;i++){
         if(images[i].hasAttribute('id') && images[i].id.indexOf('ImageLoader') < 0 && !images[i].classList.contains('visited')){
             let a = document.createElement('a');

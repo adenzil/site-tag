@@ -11,6 +11,13 @@ $(function(){
         });
     }
 
+    $('#newtag').keyup(function(e){
+        if(e.which == 13)
+            $('#save').trigger('click');
+        else if(e.which == 27)
+            $(this).val('');
+    })
+
     $('#save').click(function(){
         if($('#newtag').val().length > 0 ){
             chrome.storage.sync.get('groupsites',function(limits){
@@ -79,8 +86,10 @@ $(function(){
     })
 
     $('#delall').click(function(){
-        chrome.storage.sync.remove('groupsites');
-        loadpage()
+        if(window.confirm("Are you sure you want to delete all tag's and their URLs ?")){
+            chrome.storage.sync.remove('groupsites');
+            loadpage()
+        }
     })
 
     $('#searchtag').on('keyup',function(e){
@@ -102,7 +111,7 @@ $(function(){
         $('#extags').empty()
         $.each(obj,function(key,val){
             if(param != undefined)
-                if(!key.includes(param))
+                if(!key.toUpperCase().includes(param.toUpperCase()))
                     return true
             $('#extags').append('<div id='+key+' class="block"> <h3>'+key +'    &nbsp;&nbsp; <button class="deltag btn btn-danger btn-sm right"> Delete this tag its URLs</button> <button class="open btn btn-default btn-sm right" > Open all in new tabs </button>')
             $('#'+key).append('</br>')

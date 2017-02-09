@@ -49,4 +49,8 @@ $(function(){
         })
     })
 
+    $('#optionspage').click(function(){
+        chrome.runtime.openOptionsPage(function(){})
+    })
+
 })

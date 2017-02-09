@@ -11,15 +11,21 @@ if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('hand
 }else if(window.location.host == 'www.instagram.com'){
 
     $(document).ready(function(){
+        if(window.location.pathname == "/"){
+            setInterval(function(){
+                addDownloadTag();
+            },2000)
+        }
         downloadall();
-        setInterval(function(){
-            addDownloadTag();
-        },2000)
         $('#downloadall').click(function(){
             let images = $('img')
             for (let i=0; i<images.length;i++){
-                if(images[i].hasAttribute('id') && images[i].id.indexOf('ImageLoader') < 0)
-                    download(images[i].src);
+                if(images[i].hasAttribute('id') && images[i].id.indexOf('ImageLoader') < 0){
+                    if(window.location.pathname == "/")
+                        download(images[i].src);
+                    else
+                        download(breakandjoin(images[i].src))
+                }
             }
         })
     });
@@ -33,11 +39,13 @@ if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('hand
 function downloadall(){
     let r = document.createElement('button')
     r.id = 'downloadall';
-    r.style.width = '100%';
-    r.style.bottom = '0px';
+    r.style.width = '250px';
+    r.style.left = '30px';
+    r.style.bottom = '30px';
     r.style.padding = '10px';
     r.style.position = 'fixed';
-    r.innerText = 'DOWNLOAD ALL';
+    r.style.borderRadius = '30px'
+    r.innerText = 'DOWNLOAD ALL IMAGES';
     r.style.backgroundColor = 'deepskyblue';
     $("section")[0].append(r);
 }
@@ -60,6 +68,24 @@ function addDownloadTag(){
         }
     }
     images.addClass('visited');
+}
+
+
+/*
+    Remove crop and scale params from URL
+*/
+function breakandjoin(a){
+    let parts = a.split(/s[0-9]*x[0-9]*\//)
+    if(parts.length > 1)
+        parts = parts[0] + parts[1];
+    else
+        parts = parts[0]
+    parts = parts.split(/c[0-9.]+\//)
+    if(parts.length > 1)
+        parts = parts[0] + parts[1];
+    else
+        parts = parts[0]
+    return parts;
 }
 
 /*

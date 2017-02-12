@@ -9,15 +9,16 @@ if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('hand
     	}
     }
 }else if(window.location.host == 'www.instagram.com'){
-
     $(document).ready(function(){
+        anchorTagListener()
         if(window.location.pathname == "/"){
             setInterval(function(){
-                addDownloadTag();
+                if(window.location.pathname == "/")
+                    addDownloadTag();
             },2000)
         }
         downloadall();
-        $('#downloadall').click(function(){
+        $('body').on('click','#downloadallimg', ()=>{
             let images = $('img')
             for (let i=0; i<images.length;i++){
                 if(images[i].hasAttribute('id') && images[i].id.indexOf('ImageLoader') < 0){
@@ -33,12 +34,25 @@ if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('hand
 }
 
 
+function anchorTagListener(){
+    $('body').on('click','a', (e)=>{
+        if(window.location.href != e.target.href){
+            setTimeout(()=>{
+                downloadall();
+                anchorTagListener()
+            },2000)
+        }
+    })
+}
+
+
 /*
     One button to rule them all (aka download all images that have been loaded)
 */
 function downloadall(){
+
     let r = document.createElement('button')
-    r.id = 'downloadall';
+    r.id = 'downloadallimg';
     r.style.width = '250px';
     r.style.left = '30px';
     r.style.bottom = '30px';
@@ -61,7 +75,7 @@ function addDownloadTag(){
             a.innerText = 'DOWNLOAD';
             a.style.textAlign = 'center';
             a.style.padding = '10px';
-            a.style.backgroundColor = 'deepskyblue';
+            a.style.backgroundColor = 'yellow';
             a.download = images[i].id;
             a.href=images[i].src;
             insertAfter(images[i].parentNode.parentNode.parentNode,a);

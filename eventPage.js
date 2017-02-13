@@ -28,6 +28,9 @@ if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('hand
                         download(breakandjoin(images[i].src))
                 }
             }
+            let videos = $('video');
+            for (let i=0; i<videos.length;i++)
+                download(videos[i].src,'',videos[i].type);
         })
     });
 
@@ -59,7 +62,7 @@ function downloadall(){
     r.style.padding = '10px';
     r.style.position = 'fixed';
     r.style.borderRadius = '30px'
-    r.innerText = 'DOWNLOAD ALL IMAGES';
+    r.innerText = 'DOWNLOAD ALL MEDIA';
     r.style.backgroundColor = 'deepskyblue';
     $("section")[0].append(r);
 }

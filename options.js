@@ -144,25 +144,32 @@ $(function(){
             totaltime += seconds*1000;
 
         if (page){
-            var latest = {}
-            chrome.storage.sync.get('existinglimit',function(limits){
-                if(!('existinglimit' in limits))
-                    limits.existinglimit = {}
-                latest = limits.existinglimit;
-                latest[page]=totaltime;
-                chrome.storage.sync.set({'existinglimit':latest}, function(){
-                    chrome.runtime.sendMessage({site:{'page':page,'totaltime':totaltime}}, function(response) {
-                      console.log(response.added);
-                    });
-                    $('#page').val("");
-                    $('#minutes').val("");
-                    $('#seconds').val("");
-                    get_data()
-                });
-
+            chrome.runtime.sendMessage({permanentTimer:{'page': page, 'totaltime':totaltime}}, function(response) {
+                $('#page').val("");
+                $('#minutes').val("");
+                $('#seconds').val("");
+                get_data()
             });
 
+            // var latest = {}
+            // chrome.storage.sync.get('existinglimit',function(limits){
+            //     if(!('existinglimit' in limits))
+            //         limits.existinglimit = {}
+            //     latest = limits.existinglimit;
+            //     latest[page]=totaltime;
+            //     chrome.storage.sync.set({'existinglimit':latest}, function(){
+            //         chrome.runtime.sendMessage({site:{'page':page,'totaltime':totaltime}}, function(response) {
+            //           console.log(response.added);
+            //         });
+            //         $('#page').val("");
+            //         $('#minutes').val("");
+            //         $('#seconds').val("");
+            //         get_data()
+            //     });
+
+            // });
         }
+
     });
 
     function urldelete(){

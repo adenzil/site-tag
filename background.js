@@ -66,8 +66,14 @@ chrome.runtime.onMessage.addListener(
         sendResponse({added: "done"});
         get_data();
     }
+    else if(request.permanentTimer){
+        addPermanentTimer(request.permanentTimer.page,request.permanentTimer.totaltime)
+        sendResponse({added: "done"});
+    }
     else if(request.timer){
         set_timer(request.timer.id,request.timer.title, request.timer.totaltime);
+        if(request.timer.permanent)
+            addPermanentTimer(request.timer.url,request.timer.totaltime);
         sendResponse({added: "done"});
     }
 });
@@ -79,7 +85,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if(tab.status == 'complete'){
         for (var key in allurls) {
             if (allurls.hasOwnProperty(key)) {
-                if(tab.url.search(key) >= 0){
+                if(tab.url == key){
                     set_timer(tabId,tab.title,allurls[key]);
                     break;
                 }
@@ -88,6 +94,20 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
 
 });
+
+function addPermanentTimer(page,totaltime){
+    var latest = {}
+    chrome.storage.sync.get('existinglimit',function(limits){
+        if(!('existinglimit' in limits))
+            limits.existinglimit = {}
+        latest = limits.existinglimit;
+        latest[page]=totaltime;
+        chrome.storage.sync.set({'existinglimit':latest}, function(){
+            get_data()
+        });
+
+    });
+}
 
 function get_data(){
 

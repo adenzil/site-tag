@@ -16,37 +16,119 @@
             #error{
                 background-color: red;
                 color: white;
+                cursor: pointer;
+                display: none;
             }
             #optionspage{
                 text-align: right;
                 color: blue;
                 cursor: pointer;
             }
+            .row{
+                border-top: 1px dotted black;
+                padding-bottom: 10px;
+                padding-top: 10px;
+            }
+        </style>
+        <style type="text/css">
+            .material-switch > input[type="checkbox"] {
+                display: none;   
+            }
+
+            .material-switch > label {
+                cursor: pointer;
+                height: 0px;
+                position: relative; 
+                width: 40px;  
+            }
+
+            .material-switch > label::before {
+                background: rgb(0, 0, 0);
+                box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+                border-radius: 8px;
+                content: '';
+                height: 16px;
+                margin-top: -8px;
+                position:absolute;
+                opacity: 0.3;
+                transition: all 0.4s ease-in-out;
+                width: 40px;
+            }
+            .material-switch > label::after {
+                background: rgb(255, 255, 255);
+                border-radius: 16px;
+                box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+                content: '';
+                height: 24px;
+                left: -4px;
+                margin-top: -8px;
+                position: absolute;
+                top: -4px;
+                transition: all 0.3s ease-in-out;
+                width: 24px;
+            }
+            .material-switch > input[type="checkbox"]:checked + label::before {
+                background: inherit;
+                opacity: 0.5;
+            }
+            .material-switch > input[type="checkbox"]:checked + label::after {
+                background: inherit;
+                left: 20px;
+            }
         </style>
     </head>
     <body>
         <h1 style="text-align: center;">Group sites</h1>
-        </br>
         <h4 id="optionspage"><u>Settings</u></h4>
-        </br>
-        <b class="text-center">Title : </b><span id="title"></span>
-        </br>
-        </br>
-        </br>
-        <b class="text-center">Tag : </b><select id="optags"></select>
-        </br>
-        </br>
-        </br>
-        <button type="submit" id="savepage" class="btn btn-default">SAVE</button>
-        </br>
-        </br>
-        <div id="error"></div>
-        </br>
-        </br>
-        </br>
-        <button id="screenshot" style="width: 100%">SCREENSHOT</button>
-        </br>
-        </br>
-        </br>
+        <div class="container">
+            
+            <div class="row">
+                <div class=tagdata>
+                    <b class="text-center">Title : </b><span id="title"></span>
+                    </br>
+                    </br>
+                    <b class="text-center">Tag : </b><select id="optags"></select>
+                    </br>
+                    </br>
+                    <button type="submit" id="savepage" class="btn btn-default">SAVE</button>
+                </div>
+                </br>
+                <div id="error">
+                    <span> You have not set any tags. You can click here, to go the settings page to add new tags.</span>
+                </div>
+                </br>
+            </div>
+
+            <div class="row">
+                <button class="btn btn-success btn-group-justified" id="screenshot">Click here to take a SCREENSHOT</button>
+                
+            </div>
+
+            <div class="row">
+                <h3>Tab-destruct</h3>
+                <span>Set time here to auto-destruct this tab.</span>
+                <br><br>
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"> Minutes</span>
+                  <input type="text" id="minutes" class="form-control" placeholder="enter number of minutes" aria-describedby="basic-addon1">
+                </div>
+                </br>
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">Seconds</span>
+                  <input type="text" id="seconds" class="form-control" placeholder="enter number of seconds" aria-describedby="basic-addon1">
+                </div>
+                </br>
+                Always close this tab in the alloted time 
+                <div class="material-switch pull-right">
+                    <input id="alwaysclose" name="someSwitchOption001" type="checkbox"/>
+                    <label for="alwaysclose" class="label-success"></label>
+                </div>
+                </br></br>
+                <input class="btn btn-default btn-group-justified btn-primary" id="close" type="submit" value="Save"/>
+            </div>
+
+        </div>
+
+
     </body>
 </html>

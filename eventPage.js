@@ -5,7 +5,7 @@ if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('hand
     }else{
     	if(!checktag(window.location.search,'tag','0070e9-21')){
     		c = replaceUrlParam(window.location.search,'tag','0070e9-21')
-    	    window.location = window.location.origin + c
+    	    window.location = window.location.origin + window.location.pathname + c
     	}
     }
 }else if(window.location.host == 'www.instagram.com'){

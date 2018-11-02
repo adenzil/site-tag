@@ -3,7 +3,7 @@
 
   "name": "Site tag",
   "description": "Group all your website and create a catalog of all your websites by adding tag.",
-  "version": "1.1.7",
+  "version": "1.1.8",
 
   "icons": {
     "128": "sitetag128.png",

@@ -1,4 +1,4 @@
-if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('handle-buy-box') < 0 && window.location.protocol == "http:"){  
+if(window.location.host == 'www.amazon.in' && window.location.href.indexOf('handle-buy-box') < 0){  
     if(window.location.href.indexOf("tag") < 0) {
         b = window.location.href.indexOf("?") < 0 ? "?&tag=0070e9-21":"&tag=0070e9-21"
         window.location = window.location.href + b
